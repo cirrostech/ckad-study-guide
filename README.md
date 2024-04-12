@@ -20,5 +20,5 @@ Study guide for Certified Kubernetes Application Developer exam
 * During the exam, you are only allowed to refer to official documentation from a browser window within the exam VM.
 * 3
 
-
+If this repo has helped you in any way, feel free to post on [discussions](https://github.com/cirrostech/ckad-study-guide/discussions) or add me in LinkedIn!
 
