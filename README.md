@@ -1,4 +1,4 @@
-# ckad-study-guide
+# CKAD Study Guide
 
 Study guide for Certified Kubernetes Application Developer exam
   * [Introduction](https://github.com/cirrostech/ckad-study-guide/blob/main/00-introduction.md) to Kubernetes 
