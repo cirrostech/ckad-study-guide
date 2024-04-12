@@ -9,12 +9,15 @@ Study guide for Certified Kubernetes Application Developer exam
   * [Storage](https://github.com/cirrostech/ckad-study-guide/blob/master/05-storage.md) section
   * [Security](https://github.com/cirrostech/ckad-study-guide/blob/master/06-security.md) section
 
+
+
+
 ## Disclaimer
 
 ## Notes
 
-* 1
-* 2
+* It is recommended that you read the official documents before attempting exercises. 
+* During the exam, you are only allowed to refer to official documentation from a browser window within the exam VM.
 * 3
 
 
