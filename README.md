@@ -1,6 +1,6 @@
 # ckad-study-guide
 
-*Study guide for Certified Kubernetes Application Developer exam
+Study guide for Certified Kubernetes Application Developer exam
   * [Introduction](https://github.com/cirrostech/ckad-study-guide/blob/main/00-introduction.md) to Kubernetes 
   * [Pod](https://github.com/cirrostech/ckad-study-guide/blob/main/00-pod.md) Basics section
   * [Configuration](https://github.com/cirrostech/ckad-study-guide/blob/master/02-configuration.md) section
