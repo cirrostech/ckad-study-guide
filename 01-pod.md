@@ -38,7 +38,39 @@ kubernetes.io bookmark: [Using Pods](https://kubernetes.io/docs/concepts/workloa
 
 ```bash
 # Create the pod via the command line imperatively
-kubectl run my-pod --image=nginx:1.7.` --port=80
+kubectl run my-pod --image=nginx:1.7.1 --port=80
+```
+
+### Get pod's YAML
+
+```bash
+kubectl get po nginx -o yaml
+# or
+kubectl get po nginx -oyaml
+# or
+kubectl get po nginx --output yaml
+# or
+kubectl get po nginx --output=yaml
+```
+
+### Get information about the pod, including details about potential issues
+
+```bash
+kubectl describe po nginx
+```
+
+### Get pod logs
+
+```bash
+kubectl logs nginx
+```
+
+### If pod crashed and restarted, get logs about the previous instance
+
+```bash
+kubectl logs nginx -p
+# or
+kubectl logs nginx --previous
 ```
 
 ### Change pod's image to nginx:1.20.0. Observe that the container will be restarted as soon as the image gets pulled
@@ -48,6 +80,13 @@ kubectl run my-pod --image=nginx:1.7.` --port=80
 kubectl set image pod/nginx nginx=nginx:1.20.0
 kubectl describe po nginx # you will see an event 'Container will be killed and recreated'
 kubectl get po nginx -w # watch it
+```
+
+### Get nginx pod's ip created in previous step, use a temp busybox image to wget its '/'
+```bash
+kubectl get po -o wide # get the IP, will be something like '10.1.1.131'
+# create a temp busybox pod
+kubectl run busybox --image=busybox --rm -it --restart=Never -- wget -O- 10.1.1.131:80
 ```
 
 ##### Note: you can check pod's image by running
@@ -83,6 +122,22 @@ spec:
   restartPolicy: Never
 status: {}
 
+```
+
+### Create an nginx pod and set an env value as 'var1=val1'. Check the env value existence within the pod
+
+```bash
+kubectl run nginx --image=nginx --restart=Never --env=var1=val1
+# then
+kubectl exec -it nginx -- env
+# or
+kubectl exec -it nginx -- sh -c 'echo $var1'
+# or
+kubectl describe po nginx | grep val1
+# or
+kubectl run nginx --restart=Never --image=nginx --env=var1=val1 -it --rm -- env
+# or
+kubectl run nginx --image nginx --restart=Never --env=var1=val1 -it --rm -- sh -c 'echo $var1'
 ```
 
 ### Start a hazelcast pod and let the container expose port 5701
