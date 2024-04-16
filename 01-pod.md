@@ -103,12 +103,6 @@ kubectl run hazelcast --image=hazelcast/hazelcast --env="DNS_DOMAIN=cluster" --e
 kubectl run hazelcast --image=hazelcast/hazelcast --labels="app=hazelcast,env=prod"
 ```
 
-### Dry run; print the corresponding API objects without creating them
-
-```bash
-kubectl run nginx --image=nginx --dry-run=client 
-```
-
 ### Start a busybox pod and keep it in the foreground, don't restart it if it exits
 
 ```bash
