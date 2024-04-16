@@ -6,4 +6,4 @@ Liveness and Readiness - Health Checks for a Pod
 ServiceAccount - Functional ID inside the Pod to connect to the API server
 Security Context - Linux privilege and access control settings for a Pod or Container
 
-[pod](https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png](https://github.com/cirrostech/ckad-study-guide/blob/main/image/pod.jpg)
+[https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png](https://github.com/cirrostech/ckad-study-guide/blob/main/image/pod.jpg)
