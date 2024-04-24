@@ -229,24 +229,9 @@ cat var8 # will show val8
 
 kubernetes.io bookmark: [Using Secrets as environment variables](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)
 
-```yaml
-cat << EOF | kubectl apply -f -
-apiVersion: v1
-kind: Secret
-metadata:
-  name: my-secret  
-data:
-  password: MTIzNDU2
-  user: Ym9i
-kind: Secret
-metadata:
-  name: my-secret
-EOF
-```
+kubernetes.io bookmark: [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
 
-kubernetes.io > Documentation > Concepts > Configuration > [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
-
-kubernetes.io > Documentation > Tasks > Inject Data Into Applications > [Distribute Credentials Securely Using Secrets](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/)
+kubernetes.io bookmark: [Distribute Credentials Securely Using Secrets](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/)
 
 ## Create a secret called mysecret with the values password=mypass
 
