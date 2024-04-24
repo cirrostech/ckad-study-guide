@@ -225,8 +225,6 @@ cat var8 # will show val8
 
 ## Secret 
 
-## Storing obfuscated environmental variables per namespace
-
 kubernetes.io bookmark: [Using Secrets as environment variables](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)
 
 kubernetes.io bookmark: [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
