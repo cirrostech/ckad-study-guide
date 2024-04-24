@@ -181,6 +181,47 @@ kubectl create -f pod.yaml
 kubectl exec -it nginx -- env 
 ```
 
+## Create a configMap 'cmvolume' with values 'var8=val8', 'var9=val9'. Load this as a volume inside an nginx pod on path '/etc/lala'. Create the pod and 'ls' into the '/etc/lala' directory.
+
+```bash
+kubectl create configmap cmvolume --from-literal=var8=val8 --from-literal=var9=val9
+kubectl run nginx --image=nginx --restart=Never -o yaml --dry-run=client > pod.yaml
+vi pod.yaml
+```
+
+```YAML
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  volumes: # add a volumes list
+  - name: myvolume # just a name, you'll reference this in the pods
+    configMap:
+      name: cmvolume # name of your configmap
+  containers:
+  - image: nginx
+    imagePullPolicy: IfNotPresent
+    name: nginx
+    resources: {}
+    volumeMounts: # your volume mounts are listed here
+    - name: myvolume # the name that you specified in pod.spec.volumes.name
+      mountPath: /etc/lala # the path inside your container
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+```
+
+```bash
+kubectl create -f pod.yaml
+kubectl exec -it nginx -- /bin/sh
+cd /etc/lala
+ls # will show var8 var9
+cat var8 # will show val8
+```
 
 ## Secret - Storing obfuscated environmental variables per namespace
 
