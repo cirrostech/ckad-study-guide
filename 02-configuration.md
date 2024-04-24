@@ -250,9 +250,6 @@ kubernetes.io > Documentation > Tasks > Inject Data Into Applications > [Distrib
 
 ## Create a secret called mysecret with the values password=mypass
 
-<details><summary>show</summary>
-<p>
-
 ```bash
 kubectl create secret generic mysecret --from-literal=password=mypass
 ```
@@ -265,20 +262,11 @@ Create a file called username with the value admin:
 echo -n admin > username
 ```
 
-<details><summary>show</summary>
-<p>
-
 ```bash
 kubectl create secret generic mysecret2 --from-file=username
 ```
 
-</p>
-</details>
-
 ## Get the value of mysecret2
-
-<details><summary>show</summary>
-<p>
 
 ```bash
 kubectl get secret mysecret2 -o yaml
@@ -304,9 +292,6 @@ kubectl get secret mysecret2 -o json | jq -r .data.username | base64 -d  # on MA
 ```
 
 ## Create an nginx pod that mounts the secret mysecret2 in a volume on path /etc/foo
-
-<details><summary>show</summary>
-<p>
 
 ```bash
 kubectl run nginx --image=nginx --restart=Never -o yaml --dry-run=client > pod.yaml
