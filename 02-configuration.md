@@ -223,7 +223,9 @@ ls # will show var8 var9
 cat var8 # will show val8
 ```
 
-## Secret - Storing obfuscated environmental variables per namespace
+## Secret 
+
+## Storing obfuscated environmental variables per namespace
 
 kubernetes.io bookmark: [Using Secrets as environment variables](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)
 
@@ -240,4 +242,106 @@ kind: Secret
 metadata:
   name: my-secret
 EOF
+```
+
+kubernetes.io > Documentation > Concepts > Configuration > [Secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
+
+kubernetes.io > Documentation > Tasks > Inject Data Into Applications > [Distribute Credentials Securely Using Secrets](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/)
+
+## Create a secret called mysecret with the values password=mypass
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl create secret generic mysecret --from-literal=password=mypass
+```
+
+## Create a secret called mysecret2 that gets key/value from a file
+
+Create a file called username with the value admin:
+
+```bash
+echo -n admin > username
+```
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl create secret generic mysecret2 --from-file=username
+```
+
+</p>
+</details>
+
+## Get the value of mysecret2
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl get secret mysecret2 -o yaml
+echo -n YWRtaW4= | base64 -d # on MAC it is -D, which decodes the value and shows 'admin'
+```
+
+Alternative using `--jsonpath`:
+
+```bash
+kubectl get secret mysecret2 -o jsonpath='{.data.username}' | base64 -d  # on MAC it is -D
+```
+
+Alternative using `--template`:
+
+```bash
+kubectl get secret mysecret2 --template '{{.data.username}}' | base64 -d  # on MAC it is -D
+```
+
+Alternative using `jq`:
+
+```bash
+kubectl get secret mysecret2 -o json | jq -r .data.username | base64 -d  # on MAC it is -D
+```
+
+## Create an nginx pod that mounts the secret mysecret2 in a volume on path /etc/foo
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl run nginx --image=nginx --restart=Never -o yaml --dry-run=client > pod.yaml
+vi pod.yaml
+```
+
+```YAML
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  volumes: # specify the volumes
+  - name: foo # this name will be used for reference inside the container
+    secret: # we want a secret
+      secretName: mysecret2 # name of the secret - this must already exist on pod creation
+  containers:
+  - image: nginx
+    imagePullPolicy: IfNotPresent
+    name: nginx
+    resources: {}
+    volumeMounts: # our volume mounts
+    - name: foo # name on pod.spec.volumes
+      mountPath: /etc/foo #our mount path
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+```
+
+```bash
+kubectl create -f pod.yaml
+kubectl exec -it nginx -- /bin/bash
+ls /etc/foo  # shows username
+cat /etc/foo/username # shows admin
 ```
